@@ -30,9 +30,16 @@ public class RomanNumeralConverterTest extends TestCase {
 	}
 	
 	@Test
-	public void testRomanNumeralConverter() {
+	public void testArabicToRomanNumeralConversion() {
 		for (Map.Entry<Integer, String> valuePair : NUMBER_TO_ROMAN.entrySet()) {
-			assertEquals(valuePair.getValue(), converter.convert(valuePair.getKey()));
+			assertEquals(valuePair.getValue(), converter.toRomanNumeral(valuePair.getKey()));
+		}
+	}
+	
+	@Test
+	public void testRomanNumeralToArabicConversion() {
+		for (Map.Entry<Integer, String> valuePair : NUMBER_TO_ROMAN.entrySet()) {
+			assertEquals(valuePair.getKey().intValue(), converter.toArabic(valuePair.getValue()));
 		}
 	}
 }

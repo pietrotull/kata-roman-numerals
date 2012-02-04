@@ -6,7 +6,7 @@ import java.util.Map;
 public class RomanNumeralConverter {
 
 	@SuppressWarnings("serial")
-	private static Map<Integer, String> NUMBER_TO_ROMAN = new LinkedHashMap<Integer, String>() {{
+	private static Map<Integer, String> COMPARE_CHARS = new LinkedHashMap<Integer, String>() {{
 		put(50, "L");
 		put(40, "XL");
 		put(10, "X");
@@ -17,10 +17,35 @@ public class RomanNumeralConverter {
 	}};
 	
 	String result;
+	int arabicResult;
 	
-	public String convert(int num) {
+	public int toArabic(String roman) {
+		arabicResult = 0;
+		for (Map.Entry<Integer, String> entry : COMPARE_CHARS.entrySet()) {
+			roman = convertRomanToArabic(roman, entry.getValue(), entry.getKey());
+		}
+		return arabicResult;
+	}
+	
+	private String convertRomanToArabic(String roman, String compareChar, Integer arabicValue) {
+		while (romanStartsWithChar(roman, compareChar)) {
+			arabicResult +=arabicValue;
+			roman = removeCompareCharFromRoman(roman, compareChar);
+		}
+		return roman;
+	}
+
+	private String removeCompareCharFromRoman(String roman, String compareChar) {
+		return roman.substring(compareChar.length());
+	}
+
+	private boolean romanStartsWithChar(String roman, String compareChar) {
+		return roman.startsWith(compareChar);
+	}
+
+	public String toRomanNumeral(int num) {
 		result = "";
-		for (Map.Entry<Integer, String> numberToString : NUMBER_TO_ROMAN.entrySet()) {
+		for (Map.Entry<Integer, String> numberToString : COMPARE_CHARS.entrySet()) {
 			num = convertNumberToRoman(num, numberToString.getKey(), numberToString.getValue());
 		}
 		return result;
