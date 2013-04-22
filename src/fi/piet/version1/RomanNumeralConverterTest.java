@@ -1,4 +1,4 @@
-package fi.piet;
+package fi.piet.version1;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
